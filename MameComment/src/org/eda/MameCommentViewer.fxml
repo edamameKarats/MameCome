@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="480.0" prefWidth="640.0" style="-fx-background-color: linear-gradient(from 0% 100% to 100% 0%, #13547a 0%,  #4992A0 100%);" xmlns="http://javafx.com/javafx/9" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.eda.MameCommentViewerController">
+   <children>
+      <TableView fx:id="commentTableView" layoutX="14.0" layoutY="14.0" prefHeight="394.0" prefWidth="630.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0">
+        <columns>
+          <TableColumn fx:id="timeTableColumn" prefWidth="75.0" style="-fx-background-color: #E0E0E0;" text="時刻" />
+          <TableColumn fx:id="imageTableColumn" prefWidth="75.0" style="-fx-background-color: #E0E0E0;" text="画像" />
+            <TableColumn fx:id="nameTableColumn" prefWidth="142.0" style="-fx-background-color: #E0E0E0;" text="名前" />
+            <TableColumn fx:id="commentTableColumn" prefWidth="335.0" style="-fx-background-color: #E0E0E0;" text="コメント" />
+        </columns>
+      </TableView>
+      <TextArea fx:id="inputTextArea" layoutX="14.0" layoutY="413.0" prefHeight="62.0" prefWidth="553.0" text="" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" />
+      <Button fx:id="sendButton" layoutX="572.0" layoutY="413.0" mnemonicParsing="false" prefHeight="62.0" prefWidth="62.0" style="-fx-background-color: #E0E0E0;" text="送信" AnchorPane.bottomAnchor="10.0" AnchorPane.rightAnchor="10.0" onAction="#sendButtonClicked"/>
+   </children>
+</AnchorPane>

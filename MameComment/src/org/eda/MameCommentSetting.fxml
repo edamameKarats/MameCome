@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.ColorPicker?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="550.0" prefWidth="640.0" style="-fx-background-color: linear-gradient(from 0% 100% to 100% 0%, #13547a 0%,  #4992A0 100%);" xmlns="http://javafx.com/javafx/9" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.eda.MameCommentSettingController">
+   <children>
+      <TabPane layoutX="14.0" layoutY="45.0" prefHeight="455.0" prefWidth="600.0" style="-fx-background-color: #E0E0E0E0;" tabClosingPolicy="UNAVAILABLE" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="45.0">
+        <tabs>
+          <Tab closable="false" style="-fx-background-color: #b5aee4#b5aee4;" text="基本設定">
+            <content>
+              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="432.0" prefWidth="610.0">
+                     <children>
+                        <Label layoutX="14.0" layoutY="14.0" text="基本設定" AnchorPane.leftAnchor="5.0" AnchorPane.topAnchor="5.0">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                        </Label>
+                        <Label layoutX="24.0" layoutY="38.0" text="アクセストークンURL" AnchorPane.leftAnchor="15.0" AnchorPane.topAnchor="30.0">
+                           <font>
+                              <Font size="15.0" />
+                           </font>
+                        </Label>
+                        <Label layoutX="27.0" layoutY="47.0" text="ツイキャスにアクセスするためのトークンを指定します。&#10;下記ボタンにてブラウザを開き認証を行うと、応答URLが自動で設定されます。&#10;うまくいかない場合はアクセス先をブラウザで開き、認証後のURL&#10;(http://localhost:8080/#access_token=xxxx・・・)を応答URLに貼り付けてください。" AnchorPane.leftAnchor="25.0" AnchorPane.topAnchor="50.0" />
+                        <Button fx:id="authButton" layoutX="27.0" layoutY="115.0" mnemonicParsing="false" onAction="#authButtonClicked" prefWidth="300.0" text="プログラム認証(ブラウザで開きます)" AnchorPane.leftAnchor="35.0" AnchorPane.topAnchor="120.0" />
+                        <Label layoutX="27.0" layoutY="150.0" text="アクセス先(うまく行かない場合)：" AnchorPane.leftAnchor="25.0" AnchorPane.topAnchor="155.0" />
+                        <TextArea editable="false" layoutX="45.0" layoutY="167.0" prefHeight="79.0" prefWidth="550.0" text="https://apiv2.twitcasting.tv/oauth2/authorize?client_id=2671027374.f688b31afb4ae712724112e8ff419ae4c376a54f35f762bc047403ef6e56918d&amp;response_type=tokenhttps://apiv2.twitcasting.tv/oauth2/authorize?client_id=2671027374.f688b31afb4ae712724112e8ff419ae4c376a54f35f762bc047403ef6e56918d&amp;response_type=token" wrapText="true" AnchorPane.leftAnchor="35.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="170.0" />
+                        <Label layoutX="28.0" layoutY="254.0" text="応答URL:" AnchorPane.leftAnchor="25.0" AnchorPane.topAnchor="255.0" />
+                        <TextField fx:id="replyUrlTextField" layoutX="46.0" layoutY="271.0" prefHeight="27.0" prefWidth="543.0" AnchorPane.leftAnchor="35.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="270.0" />
+                        <Label layoutX="11.0" layoutY="298.0" text="ログ出力" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="310.0">
+                           <font>
+                              <Font size="15.0" />
+                           </font>
+                        </Label>
+                        <Label layoutX="39.0" layoutY="331.0" text="日時+放送ユーザーIDでログファイルを出力するかどうかを設定します。&#10;出力する場合は出力先も合わせて設定して下さい。" AnchorPane.leftAnchor="25.0" AnchorPane.topAnchor="330.0" />
+                        <CheckBox fx:id="logFlgCheckBox" layoutX="41.0" layoutY="365.0" mnemonicParsing="false" text="出力する" AnchorPane.leftAnchor="35.0" AnchorPane.topAnchor="365.0" />
+                        <Label layoutX="45.0" layoutY="388.0" text="出力先:" AnchorPane.leftAnchor="35.0" AnchorPane.topAnchor="390.0" />
+                        <TextField fx:id="logPathTextField" layoutX="92.0" layoutY="383.0" prefHeight="27.0" prefWidth="495.0" AnchorPane.leftAnchor="80.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="385.0" />
+                     </children></AnchorPane>
+            </content>
+          </Tab>
+          <Tab closable="false" style="-fx-background-color: #b5aee4;" text="ボード設定">
+            <content>
+              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <Label layoutX="22.0" layoutY="14.0" text="ボード設定" AnchorPane.leftAnchor="5.0" AnchorPane.topAnchor="5.0">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                        </Label>
+                        <Label layoutX="24.0" layoutY="28.0" text="配置・サイズ" AnchorPane.leftAnchor="15.0" AnchorPane.topAnchor="30.0">
+                           <font>
+                              <Font size="15.0" />
+                           </font>
+                        </Label>
+                        <Label layoutX="36.0" layoutY="52.0" text="ボードの配置場所・ウインドウサイズを指定します。&#10;ボード表示後にドラッグで変更することも可能です。" AnchorPane.leftAnchor="25.0" AnchorPane.topAnchor="50.0" />
+                        <Label layoutX="46.0" layoutY="97.0" text="横位置:" AnchorPane.leftAnchor="35.0" AnchorPane.topAnchor="90.0" />
+                        <Label layoutX="46.0" layoutY="114.0" text="縦位置:" AnchorPane.leftAnchor="35.0" AnchorPane.topAnchor="120.0" />
+                        <Label layoutX="202.0" layoutY="97.0" text="横幅:" AnchorPane.leftAnchor="190.0" AnchorPane.topAnchor="90.0" />
+                        <Label layoutX="202.0" layoutY="114.0" text="縦幅:" AnchorPane.leftAnchor="190.0" AnchorPane.topAnchor="120.0" />
+                        <TextField fx:id="boardXTextField" layoutX="102.0" layoutY="92.0" prefHeight="27.0" prefWidth="90.0" AnchorPane.leftAnchor="80.0" AnchorPane.topAnchor="85.0" />
+                        <TextField fx:id="boardYTextField" layoutX="102.0" layoutY="118.0" prefHeight="27.0" prefWidth="90.0" AnchorPane.leftAnchor="80.0" AnchorPane.topAnchor="115.0" />
+                        <TextField fx:id="boardWidthTextField" layoutX="232.0" layoutY="92.0" prefHeight="27.0" prefWidth="90.0" AnchorPane.leftAnchor="220.0" AnchorPane.topAnchor="85.0" />
+                        <TextField fx:id="boardHeightTextField" layoutX="232.0" layoutY="118.0" prefHeight="27.0" prefWidth="90.0" AnchorPane.leftAnchor="220.0" AnchorPane.topAnchor="115.0" />
+                        <Label layoutX="24.0" layoutY="161.0" text="フォント・行数" AnchorPane.leftAnchor="15.0" AnchorPane.topAnchor="150.0">
+                           <font>
+                              <Font size="15.0" />
+                           </font>
+                        </Label>
+                        <Label layoutX="36.0" layoutY="178.0" text="ボードで使用するフォントと、表示する行数を指定します。&#10;フォントサイズは、行数によって自動設定されます。" AnchorPane.leftAnchor="25.0" AnchorPane.topAnchor="170.0" />
+                        <Label layoutX="46.0" layoutY="220.0" text="フォント名:" AnchorPane.leftAnchor="35.0" AnchorPane.topAnchor="210.0" />
+                        <ComboBox fx:id="boardFontNameComboBox" layoutX="127.0" layoutY="215.0" prefWidth="150.0" AnchorPane.leftAnchor="105.0" AnchorPane.topAnchor="205.0" />
+                        <Label layoutX="288.0" layoutY="220.0" text="行数:" AnchorPane.leftAnchor="280.0" AnchorPane.topAnchor="210.0" />
+                        <TextField fx:id="boardLineNumTextField" layoutX="322.0" layoutY="215.0" prefHeight="27.0" prefWidth="90.0" AnchorPane.leftAnchor="310.0" AnchorPane.topAnchor="205.0" />
+                        <Label layoutX="24.0" layoutY="262.0" text="フォント色・背景色" AnchorPane.leftAnchor="15.0" AnchorPane.topAnchor="240.0">
+                           <font>
+                              <Font size="15.0" />
+                           </font>
+                        </Label>
+                        <Label layoutX="49.0" layoutY="279.0" text="ボードで使用するフォントと、背景の色を指定します。" AnchorPane.leftAnchor="25.0" AnchorPane.topAnchor="260.0" />
+                        <Label layoutX="48.0" layoutY="304.0" text="フォント色:" AnchorPane.leftAnchor="35.0" AnchorPane.topAnchor="285.0" />
+                        <ColorPicker fx:id="boardFontColorPicker" layoutX="117.0" layoutY="299.0" prefWidth="150.0" AnchorPane.leftAnchor="105.0" AnchorPane.topAnchor="280.0" />
+                        <Label layoutX="288.0" layoutY="304.0" text="背景色:" AnchorPane.leftAnchor="280.0" AnchorPane.topAnchor="285.0" />
+                        <ColorPicker fx:id="boardBgColorPicker" layoutX="337.0" layoutY="299.0" prefWidth="150.0" AnchorPane.leftAnchor="325.0" AnchorPane.topAnchor="280.0" />
+                     </children></AnchorPane>
+            </content>
+          </Tab>
+            <Tab closable="false" style="-fx-background-color: #b5aee4; -fx-pref-width: 100;" text="ビューワー設定">
+              <content>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <Label layoutX="33.0" layoutY="22.0" text="ビューワー設定" AnchorPane.leftAnchor="5.0" AnchorPane.topAnchor="5.0">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                        </Label>
+                        <Label layoutX="34.0" layoutY="28.0" text="配置・サイズ" AnchorPane.leftAnchor="15.0" AnchorPane.topAnchor="30.0">
+                           <font>
+                              <Font size="15.0" />
+                           </font>
+                        </Label>
+                        <Label layoutX="48.0" layoutY="45.0" text="ビューワーの配置場所・ウインドウサイズを指定します。&#10;ビューワー表示後にドラッグで変更することも可能です。" AnchorPane.leftAnchor="25.0" AnchorPane.topAnchor="50.0" />
+                        <Label layoutX="68.0" layoutY="84.0" text="横位置:" AnchorPane.leftAnchor="35.0" AnchorPane.topAnchor="90.0" />
+                        <Label layoutX="68.0" layoutY="101.0" text="縦位置:" AnchorPane.leftAnchor="35.0" AnchorPane.topAnchor="120.0" />
+                        <Label layoutX="224.0" layoutY="84.0" text="横幅:" AnchorPane.leftAnchor="190.0" AnchorPane.topAnchor="90.0" />
+                        <Label layoutX="224.0" layoutY="101.0" text="縦幅:" AnchorPane.leftAnchor="190.0" AnchorPane.topAnchor="120.0" />
+                        <TextField fx:id="viewerXTextField" layoutX="124.0" layoutY="79.0" prefHeight="27.0" prefWidth="90.0" AnchorPane.leftAnchor="80.0" AnchorPane.topAnchor="85.0" />
+                        <TextField fx:id="viewerYTextField" layoutX="124.0" layoutY="105.0" prefHeight="27.0" prefWidth="90.0" AnchorPane.leftAnchor="80.0" AnchorPane.topAnchor="115.0" />
+                        <TextField fx:id="viewerWidthTextField" layoutX="254.0" layoutY="79.0" prefHeight="27.0" prefWidth="90.0" AnchorPane.leftAnchor="220.0" AnchorPane.topAnchor="85.0" />
+                        <TextField fx:id="viewerHeightTextField" layoutX="254.0" layoutY="105.0" prefHeight="27.0" prefWidth="90.0" AnchorPane.leftAnchor="220.0" AnchorPane.topAnchor="115.0" />
+                        <Label layoutX="34.0" layoutY="146.0" text="フォント・サイズ" AnchorPane.leftAnchor="15.0" AnchorPane.topAnchor="150.0">
+                           <font>
+                              <Font size="15.0" />
+                           </font>
+                        </Label>
+                        <Label layoutX="51.0" layoutY="163.0" text="ビューワーで使用するフォントとフォントサイズを指定します。&#10;(Macでは、フォントはApple Color Emoji固定です)" AnchorPane.leftAnchor="25.0" AnchorPane.topAnchor="170.0" />
+                        <Label layoutX="73.0" layoutY="205.0" text="フォント名:" AnchorPane.leftAnchor="35.0" AnchorPane.topAnchor="210.0" />
+                        <ComboBox fx:id="viewerFontNameComboBox" layoutX="149.0" layoutY="200.0" prefWidth="150.0" AnchorPane.leftAnchor="105.0" AnchorPane.topAnchor="205.0" />
+                        <Label layoutX="313.0" layoutY="198.0" text="フォントサイズ:" AnchorPane.leftAnchor="280.0" AnchorPane.topAnchor="210.0" />
+                        <TextField fx:id="viewerFontSizeTextField" layoutX="428.0" layoutY="193.0" prefHeight="27.0" prefWidth="90.0" AnchorPane.leftAnchor="375.0" AnchorPane.topAnchor="205.0" />
+                        <Label layoutX="34.0" layoutY="248.0" text="フォント・背景色" AnchorPane.leftAnchor="15.0" AnchorPane.topAnchor="240.0">
+                           <font>
+                              <Font size="15.0" />
+                           </font>
+                        </Label>
+                        <Label layoutX="51.0" layoutY="265.0" text="ビューワーで使用するフォントと背景の色を指定します。" AnchorPane.leftAnchor="25.0" AnchorPane.topAnchor="260.0" />
+                        <Label layoutX="73.0" layoutY="282.0" text="フォント色:" AnchorPane.leftAnchor="35.0" AnchorPane.topAnchor="285.0" />
+                        <ColorPicker fx:id="viewerFontColorPicker" layoutX="149.0" layoutY="277.0" prefWidth="150.0" AnchorPane.leftAnchor="105.0" AnchorPane.topAnchor="280.0" />
+                        <Label layoutX="310.0" layoutY="282.0" text="背景色:" AnchorPane.leftAnchor="280.0" AnchorPane.topAnchor="285.0" />
+                        <ColorPicker fx:id="viewerBgColorPicker" layoutX="327.0" layoutY="280.0" prefWidth="150.0" AnchorPane.leftAnchor="327.0" AnchorPane.topAnchor="280.0" />
+                        <Label layoutX="18.0" layoutY="317.0" text="サムネイル設定" AnchorPane.leftAnchor="15.0" AnchorPane.topAnchor="315.0">
+                           <font>
+                              <Font size="15.0" />
+                           </font>
+                        </Label>
+                        <Label layoutX="61.0" layoutY="275.0" text="ビューワーで表示するサムネイルのサイズを指定します。&#10;フォントサイズ10の場合、16で概ね1行分のサイズです。" AnchorPane.leftAnchor="25.0" AnchorPane.topAnchor="335.0" />
+                        <Label layoutX="83.0" layoutY="292.0" text="フォント色:" AnchorPane.leftAnchor="35.0" AnchorPane.topAnchor="375.0" />
+                        <TextField fx:id="viewerImageSizeTextField" layoutX="105.0" layoutY="370.0" prefHeight="27.0" prefWidth="90.0" AnchorPane.leftAnchor="105.0" AnchorPane.topAnchor="370.0" />
+                     </children></AnchorPane>
+              </content>
+            </Tab>
+        </tabs>
+      </TabPane>
+      <Label layoutX="14.0" layoutY="14.0" style="-fx-text-fill: #E0E0E0;" text="設定" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="10.0">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Label>
+      <Button fx:id="saveButton" layoutX="146.0" layoutY="495.0" mnemonicParsing="false" onAction="#saveButtonClicked" prefWidth="150.0" text="保存" AnchorPane.leftAnchor="160.0" AnchorPane.topAnchor="510.0" />
+      <Button fx:id="canselButton" layoutX="208.0" layoutY="495.0" mnemonicParsing="false" onAction="#canselButtonClicked" prefWidth="150.0" text="キャンセル" AnchorPane.rightAnchor="160.0" AnchorPane.topAnchor="510.0" />
+   </children>
+</AnchorPane>
