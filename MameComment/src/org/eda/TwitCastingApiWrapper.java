@@ -5,6 +5,7 @@ import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.nio.charset.Charset;
 import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
@@ -87,13 +88,14 @@ public class TwitCastingApiWrapper {
 	public static boolean postCommentData(String movieId, String comment, String sns, String accessToken) {
 		boolean result=false;
 		String postData="{\"comment\": \""+comment+"\", \"sns\": \""+sns+"\"}";
+		System.out.println("Send data is "+postData);
 		String resultString=postCommentWrapper(movieId,postData,accessToken);
-		JSONObject resultJSON=new JSONObject(resultString);
-		try {
-			resultJSON.get("created");
-			result=true;
-		}catch(Exception e) {
-		}
+//		JSONObject resultJSON=new JSONObject(resultString);
+//		try {
+//			resultJSON.get("created");
+//			result=true;
+//		}catch(Exception e) {
+//		}
 		return result;
 	}
 
@@ -129,6 +131,7 @@ public class TwitCastingApiWrapper {
 	//PostCommentのWrapper
 	public static String postCommentWrapper(String movieId, String comment, String accessToken) {
 		String result;
+		System.out.println("try to post "+comment +" to "+movieId);
 		result=execPostRequest("https://apiv2.twitcasting.tv/movies/"+movieId+"/comments",comment,accessToken);
 		return result;
 	}
@@ -184,10 +187,12 @@ public class TwitCastingApiWrapper {
 			connection.setRequestMethod("POST");
 			connection.setRequestProperty("Accept", "application/json");
 			connection.setRequestProperty("Content-Type", "application/json");
+			connection.setRequestProperty("Content-Length",""+postData.getBytes(Charset.forName("UTF-8")).length);
 			connection.setRequestProperty("X-Api-Version", "2.0");
 			connection.setRequestProperty("Authorization", "Bearer "+accessToken);
 			ow=new OutputStreamWriter(connection.getOutputStream());
 			ow.write(postData);
+			ow.flush();
 			connection.connect();
 			br=new BufferedReader(new InputStreamReader(connection.getInputStream(),"UTF-8"));
 			while((line=br.readLine())!=null) {
