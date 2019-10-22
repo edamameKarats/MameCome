@@ -53,6 +53,7 @@ public class MameCommentViewerImage {
 				fileName=Paths.get("cachedImages/"+tmpFileName).toRealPath(LinkOption.NOFOLLOW_LINKS).toString();
 				aImageMap.put(aFileUrl, fileName);
 			}catch(Exception e) {
+				e.printStackTrace();
 				//エラーが起きた場合はblankファイルを使用するようにする。
 				//次回もトライするので、Mapは更新しない
 				writeDebugLog("some exception is occured during file get and save");
