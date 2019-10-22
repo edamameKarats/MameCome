@@ -106,6 +106,11 @@ public class MameCommentSettingController implements Initializable{
 	@FXML
 	public void saveButtonClicked(ActionEvent evt) {
 		setSettingFromFormData();
+		try {
+			mameCommentSettingData.writeToIni();
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
 		settingStage.close();
 	}
 	@FXML
