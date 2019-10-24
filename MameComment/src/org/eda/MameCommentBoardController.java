@@ -47,10 +47,7 @@ public class MameCommentBoardController implements Initializable{
 	public void initialize(URL location, ResourceBundle resources) {
 		xFlg=false;
 		yFlg=false;
-		playFlag=new int[10];
-		for(int i=0;i<playFlag.length;i++) {
-			playFlag[i]=0;
-		}
+
 		isTrans=0;
 		boardParent.setOnMouseMoved(e->{
 			if(e.getX()>=boardParent.getWidth()-10) {
@@ -114,6 +111,12 @@ public class MameCommentBoardController implements Initializable{
 				boardStage.setY(initStageY+yDelta);
 			}
 		});
+
+		playFlag=new int[mameCommentSettingData.boardLineNum];
+		for(int i=0;i<playFlag.length;i++) {
+			playFlag[i]=0;
+		}
+
 	}
 
 	public void playRequest(ArrayList<ArrayList<String>> commentArray) {
@@ -149,7 +152,9 @@ public class MameCommentBoardController implements Initializable{
 		commentTransition.setToX(-commentWidth);
 		commentTransition.setInterpolator(Interpolator.LINEAR);
 		Group comGroup = new Group(com);
-		int height=getHeight(-1);
+		//\nの数を数える
+		int height=chkCount(message);
+		//行数以上になってしまったら、仕方ないので上にずらす
 		comGroup.setLayoutY(commentHeight*(height+1));
 		boardData.getChildren().add(comGroup);
 		commentTransition.setOnFinished(new EventHandler<ActionEvent>() {
@@ -201,6 +206,22 @@ public class MameCommentBoardController implements Initializable{
 		}else {
 			playFlag[height]=playFlag[height]-1;
 			result=height;
+		}
+		return result;
+	}
+
+	private int chkCount(String message) {
+		int result=0;
+		int count=(int)(message.chars().filter(ch -> ch == '\n').count());
+		int height=getHeight(-1);
+		if(count+height>=mameCommentSettingData.boardLineNum) {
+			if(height+count>=mameCommentSettingData.boardLineNum) {
+				result=mameCommentSettingData.boardLineNum-count-1;
+				if(result<0) {
+					result=0;
+				}
+			}
+			else result=height;
 		}
 		return result;
 	}

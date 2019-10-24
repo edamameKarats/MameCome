@@ -23,6 +23,7 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.util.Callback;
 
@@ -70,9 +71,29 @@ public class MameCommentViewerController implements Initializable{
 		inputTextArea.setStyle("-fx-text-fill: #"+mameCommentSettingData.viewerFontColor.substring(2,8)+";");
 		inputTextArea.lookup(".content").setStyle("-fx-background-color:#"+mameCommentSettingData.viewerBgColor.substring(2,8)+";");
 
+		//Wrap setting
+		commentTableColumn.setCellFactory(param ->{
+			return new TableCell<MameCommentViewerUser,String>(){
+				@Override
+				protected void updateItem(String item,boolean empty){
+					super.updateItem(item, empty);
+					if (item == null || empty) {
+						setText(null);
+						setStyle("");
+					} else {
+						Text text = new Text(item);
+						text.setWrappingWidth(param.getPrefWidth());
+						setGraphic(text);
+					}
+				}
+			};
+		});
+
+		//Label when no item is registered.
 		Label tmpLabel=new Label("");
 		commentTableView.setPlaceholder(tmpLabel);
 
+		//get scrollbar
 		Set<Node> nodes=commentTableView.lookupAll(".scroll-bar");
 		scrollBar=null;
 		for(Node node:nodes) {
