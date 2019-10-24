@@ -7,22 +7,31 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.ResourceBundle;
 import java.util.Set;
+import java.util.Timer;
+import java.util.TimerTask;
 
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Orientation;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollBar;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseButton;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.util.Callback;
@@ -36,6 +45,9 @@ public class MameCommentViewerController implements Initializable{
 	@FXML TableColumn<MameCommentViewerUser,String> commentTableColumn;
 	@FXML TextArea inputTextArea;
 	@FXML Button sendButton;
+	@FXML CheckBox snsCheckBox,repCheckBox;
+	@FXML Label snsLabel,repLabel;
+
 
 	private Stage viewerStage;
 	private MameCommentMainController mameCommentMainController;
@@ -67,9 +79,11 @@ public class MameCommentViewerController implements Initializable{
 		imageTableColumn.setStyle("-fx-background-color:#"+mameCommentSettingData.viewerBgColor.substring(2,8)+";-fx-text-fill: #"+mameCommentSettingData.viewerFontColor.substring(2,8)+";");
 		nameTableColumn.setStyle("-fx-background-color:#"+mameCommentSettingData.viewerBgColor.substring(2,8)+";-fx-text-fill: #"+mameCommentSettingData.viewerFontColor.substring(2,8)+";");
 		commentTableColumn.setStyle("-fx-background-color:#"+mameCommentSettingData.viewerBgColor.substring(2,8)+";-fx-text-fill: #"+mameCommentSettingData.viewerFontColor.substring(2,8)+";");
-		commentTableView.setStyle("-fx-background-color:#"+mameCommentSettingData.viewerBgColor.substring(2,8)+";");
 		inputTextArea.setStyle("-fx-text-fill: #"+mameCommentSettingData.viewerFontColor.substring(2,8)+";");
 		inputTextArea.lookup(".content").setStyle("-fx-background-color:#"+mameCommentSettingData.viewerBgColor.substring(2,8)+";");
+
+		snsLabel.setStyle("-fx-background-color:#"+mameCommentSettingData.viewerBgColor.substring(2,8)+";-fx-text-fill: #"+mameCommentSettingData.viewerFontColor.substring(2,8)+";");
+		repLabel.setStyle("-fx-background-color:#"+mameCommentSettingData.viewerBgColor.substring(2,8)+";-fx-text-fill: #"+mameCommentSettingData.viewerFontColor.substring(2,8)+";");
 
 		//Wrap setting
 		commentTableColumn.setCellFactory(param ->{
@@ -110,12 +124,78 @@ public class MameCommentViewerController implements Initializable{
 				commentTableView.scrollTo(count);
 			}
 		});
+
+		//add size change listener
+		viewerStage.widthProperty().addListener(new ChangeListener<Number>() {
+			final Timer timer=new Timer();
+			TimerTask task=null;
+			final long delayTime=200;
+			@Override public void changed(ObservableValue<? extends Number> observableValue, Number oldSceneWidth, Number newSceneWidth) {
+				if(task!=null) {
+					task.cancel();
+				}
+				task=new TimerTask() {
+					@Override
+					public void run() {
+						writeDebugLog("Adjust column size");
+						double tmpTableWidth = commentTableView.getWidth();
+						double tmpTimeColumnWidth = timeTableColumn.getWidth();
+						double tmpImageColumnWidth = imageTableColumn.getWidth();
+						double tmpNameColumnWidth = nameTableColumn.getWidth();
+						double tmpCommentColumnWidth = commentTableColumn.getWidth();
+						double tmpScrollBarWidth=scrollBar.getWidth()+5;//ちょっとずれてる
+						double tmpTotalColumnWidth=tmpTimeColumnWidth+tmpImageColumnWidth+tmpNameColumnWidth+tmpNameColumnWidth;
+						if(tmpTableWidth>=tmpTotalColumnWidth+scrollBar.getWidth()) {
+							commentTableColumn.setPrefWidth(tmpTableWidth-tmpTimeColumnWidth-tmpImageColumnWidth-tmpNameColumnWidth-tmpScrollBarWidth);
+						}else {
+							timeTableColumn.setPrefWidth((tmpTableWidth-tmpScrollBarWidth)/tmpTotalColumnWidth*tmpTimeColumnWidth);
+							imageTableColumn.setPrefWidth((tmpTableWidth-tmpScrollBarWidth)/tmpTotalColumnWidth*tmpImageColumnWidth);
+							nameTableColumn.setPrefWidth((tmpTableWidth-tmpScrollBarWidth)/tmpTotalColumnWidth*tmpNameColumnWidth);
+							commentTableColumn.setPrefWidth((tmpTableWidth-tmpScrollBarWidth)/tmpTotalColumnWidth*tmpCommentColumnWidth);
+						}
+					}
+				};
+				timer.schedule(task, delayTime);
+			}
+		});
+
+		commentTableView.setOnMouseClicked(new EventHandler<MouseEvent>() {
+			@Override
+			public void handle(MouseEvent event) {
+				if (event.getButton()==MouseButton.PRIMARY && event.getClickCount() == 2) {
+					Node node=((Node)event.getTarget()).getParent();
+					TableRow<MameCommentViewerUser> row;
+					if(node instanceof TableRow) {
+						row=(TableRow<MameCommentViewerUser>)node;
+					}else {
+						node=node.getParent();
+						if(node instanceof TableRow) {
+							row=(TableRow<MameCommentViewerUser>)node;
+						}else {
+							//not row object
+							return;
+						}
+					}
+					if(!inputTextArea.getText().equals("")) {
+						inputTextArea.setText(inputTextArea.getText()+" @"+row.getItem().screen_name+" ");
+					}else {
+						inputTextArea.setText("@"+row.getItem().screen_name+" ");
+					}
+				}
+			}
+		});
 	}
 
 	public void sendButtonClicked(ActionEvent evt) {
 		if(!inputTextArea.getText().equals("")) {
-			writeDebugLog("Message send. "+inputTextArea.getText());
-			mameCommentMainController.postComment(inputTextArea.getText(), "none");
+			String snsOption="none";
+			if(snsCheckBox.isSelected()) {
+				snsOption="normal";
+			}else if(repCheckBox.isSelected()) {
+				snsOption="reply";
+			}
+			writeDebugLog("Message send with sns option "+snsOption+". Message:"+inputTextArea.getText());
+			mameCommentMainController.postComment(inputTextArea.getText(), snsOption);
 			inputTextArea.setText("");
 		}
 	}
@@ -124,7 +204,7 @@ public class MameCommentViewerController implements Initializable{
 		double beforeBarPosition=scrollBar.getValue();
 		for(int i=0;i<commentsArray.size();i++) {
 			MameCommentViewerImage image=new MameCommentViewerImage(commentsArray.get(i).get(2),mameCommentSettingData.viewerImageSize,imageMap);
-			commentTableView.getItems().add(new MameCommentViewerUser(commentsArray.get(i).get(1),commentsArray.get(i).get(3),commentsArray.get(i).get(4),image));
+			commentTableView.getItems().add(new MameCommentViewerUser(commentsArray.get(i).get(1),commentsArray.get(i).get(3),commentsArray.get(i).get(4),image,commentsArray.get(i).get(5)));
 		}
 		timeTableColumn.setCellValueFactory(new PropertyValueFactory<MameCommentViewerUser, String>("time"));
 		nameTableColumn.setCellValueFactory(new PropertyValueFactory<MameCommentViewerUser, String>("name"));
@@ -152,6 +232,16 @@ public class MameCommentViewerController implements Initializable{
 		}
 	}
 
+	public void snsChecked(ActionEvent evt){
+		if(repCheckBox.isSelected()) {
+			repCheckBox.setSelected(false);
+		}
+	}
+	public void repChecked(ActionEvent evt){
+		if(snsCheckBox.isSelected()) {
+			snsCheckBox.setSelected(false);
+		}
+	}
 
 
 }

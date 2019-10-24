@@ -5,6 +5,7 @@ import static org.eda.MameCommentCommon.*;
 import java.io.BufferedOutputStream;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
+import java.io.File;
 import java.io.FileOutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
@@ -43,7 +44,10 @@ public class MameCommentViewerImage {
 					throw new Exception();
 				}
 				dis=new DataInputStream(conn.getInputStream());
-				dos=new DataOutputStream(new BufferedOutputStream(new FileOutputStream("cachedImages/"+tmpFileName)));
+writeDebugLog("target file is cachedImages/"+tmpFileName);
+File tmpFile=new File("cachedImages/"+tmpFileName);
+writeDebugLog("abs path is "+tmpFile.getAbsolutePath());
+	dos=new DataOutputStream(new BufferedOutputStream(new FileOutputStream("cachedImages/"+tmpFileName)));
 				byte[] b=new byte[4096];
 				int readByte=0;
 

@@ -71,6 +71,7 @@ public class TwitCastingApiWrapper {
 				tmpComment.add(userJSON.getString("image"));
 				tmpComment.add(userJSON.getString("name"));
 				tmpComment.add(commentJSON.getString("message"));
+				tmpComment.add(userJSON.getString("screen_id"));
 				tmpResult.put((int)commentJSON.get("created"), tmpComment);
 			}
 			//sort

@@ -10,12 +10,14 @@ public class MameCommentViewerUser {
     private StringProperty name;
     private StringProperty comment;
     private ObjectProperty<MameCommentViewerImage> image;
+    public String screen_name;
 
-    public MameCommentViewerUser(String aTime, String aName, String aComment, MameCommentViewerImage aImage) {
+    public MameCommentViewerUser(String aTime, String aName, String aComment, MameCommentViewerImage aImage, String aScreenName) {
     	time=new SimpleStringProperty(aTime);
     	name=new SimpleStringProperty(aName);
     	comment=new SimpleStringProperty(aComment);
         image = new SimpleObjectProperty<MameCommentViewerImage>(aImage);
+        screen_name=aScreenName;
     }
 
     public StringProperty timeProperty() {

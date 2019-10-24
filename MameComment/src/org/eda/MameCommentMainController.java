@@ -20,6 +20,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
@@ -156,6 +157,7 @@ public class MameCommentMainController implements Initializable{
 	public void displaySettingClicked(ActionEvent evt) {
 		try {
 			settingStage=new Stage();
+			settingStage.initModality(Modality.APPLICATION_MODAL);
 			settingLoader = new FXMLLoader(getClass().getResource("MameCommentSetting.fxml"));
 			settingRoot = settingLoader.load();
 			settingController=settingLoader.getController();
@@ -174,10 +176,6 @@ public class MameCommentMainController implements Initializable{
 					setAccountUserInfo();
 				}
 			});
-
-
-
-
 			settingStage.show();
 			settingController.initAfterViewed(settingStage,settingData);
 
@@ -223,13 +221,13 @@ public class MameCommentMainController implements Initializable{
 				accountUserImage.setImage(new Image(accountUserInfo.get(2)));
 			}catch(Exception e) {
 				e.printStackTrace();
-				accountUserName.setText("");
-				accountUserId.setText("");
+				accountUserName.setText("token error");
+				accountUserId.setText("token error");
 				accountUserImage.setImage(new Image("blank.jpg"));
 			}
 		}else {
-			accountUserName.setText("");
-			accountUserId.setText("");
+			accountUserName.setText("no token");
+			accountUserId.setText("no token");
 			accountUserImage.setImage(new Image("blank.jpg"));
 		}
 	}
@@ -254,7 +252,7 @@ public class MameCommentMainController implements Initializable{
 	}
 
 	public boolean postComment(String comment,String sns) {
-		writeDebugLog("Post comment request received. comment:"+comment+", sns:"+sns);
+		writeDebugLog("Post comment request received. comment:"+comment+", sns:"+sns+",to "+getThread.movieId);
 		return TwitCastingApiWrapper.postCommentData(getThread.movieId, comment, sns, settingData.token);
 	}
 }
