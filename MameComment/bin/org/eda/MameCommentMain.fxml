@@ -7,10 +7,10 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="185.0" prefWidth="480.0" style="-fx-background-color: linear-gradient(from 0% 100% to 100% 0%, #13547a 0%,  #4992A0 100%);" xmlns="http://javafx.com/javafx/9" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.eda.MameCommentMainController">
+<AnchorPane styleClass="background,base" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="185.0" prefWidth="480.0" xmlns="http://javafx.com/javafx/9" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.eda.MameCommentMainController">
    <children>
       <Label layoutX="5.0" layoutY="5.0" prefHeight="74.0" prefWidth="74.0" style="-fx-background-color: #FFFFFF;" text="Mame&#10;Comment" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="10.0" />
-      <AnchorPane layoutX="109.0" layoutY="14.0" prefHeight="74.0" prefWidth="477.0" style="-fx-background-color: linear-gradient(from 0% 100% to 100% 0%, #E0E0E0 0%,  #F0F0F0 100%);" AnchorPane.leftAnchor="89.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0">
+      <AnchorPane styleClass="form,base" layoutX="109.0" layoutY="14.0" prefHeight="74.0" prefWidth="477.0" AnchorPane.leftAnchor="89.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0">
          <children>
             <Label layoutX="14.0" layoutY="14.0" text="アカウント情報:" AnchorPane.leftAnchor="5.0" AnchorPane.topAnchor="5.0" />
             <ImageView id="accountUserImage" fx:id="accountUserImage" fitHeight="64.0" fitWidth="64.0" layoutX="279.0" layoutY="2.0" pickOnBounds="true" preserveRatio="true" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="5.0">
@@ -24,16 +24,16 @@
             <Label id="accountUserId" fx:id="accountUserId" layoutX="126.0" layoutY="72.0" text="UserID" AnchorPane.leftAnchor="90.0" AnchorPane.topAnchor="45.0" />
          </children>
       </AnchorPane>
-      <AnchorPane layoutX="14.0" layoutY="144.0" prefHeight="53.0" prefWidth="470.0" style="-fx-background-color: linear-gradient(from 0% 100% to 100% 0%, #E0E0E0 0%,  #F0F0F0 100%);" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="89.0">
+      <AnchorPane styleClass="form,base" layoutX="14.0" layoutY="144.0" prefHeight="53.0" prefWidth="470.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="89.0">
          <children>
             <Label layoutX="14.0" layoutY="14.0" text="コメント取得先:" AnchorPane.leftAnchor="5.0" AnchorPane.topAnchor="5.0" />
             <Label layoutX="14.0" layoutY="43.0" text="ユーザーID:" AnchorPane.leftAnchor="15.0" AnchorPane.topAnchor="25.0" />
             <TextField id="movieUserId" fx:id="movieUserId" layoutX="93.0" layoutY="38.0" prefHeight="27.0" prefWidth="275.0" AnchorPane.leftAnchor="85.0" AnchorPane.topAnchor="20.0" />
-            <Button id="getStartButton" fx:id="getStartButton" layoutX="365.0" layoutY="20.0" mnemonicParsing="false" onAction="#getStartClicked" prefHeight="27.0" prefWidth="90.0" text="取得開始" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="20.0" />
+            <Button styleClass="button,base" id="getStartButton" fx:id="getStartButton" layoutX="365.0" layoutY="20.0" mnemonicParsing="false" onAction="#getStartClicked" prefHeight="27.0" prefWidth="90.0" text="取得開始" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="20.0" />
          </children>
       </AnchorPane>
-      <Button id="displayBoardButton" fx:id="displayBoardButton" layoutX="10.0" layoutY="147.0" mnemonicParsing="false" onAction="#displayBoardClicked" prefHeight="27.0" prefWidth="150.0" text="ボード表示" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="147.0" />
-      <Button id="displayViewerButton" fx:id="displayViewerButton" layoutX="180.0" layoutY="229.0" mnemonicParsing="false" onAction="#displayViewerClicked" prefHeight="27.0" prefWidth="150.0" text="ビューワー表示" AnchorPane.leftAnchor="165.0" AnchorPane.topAnchor="147.0" />
-      <Button id="displaySettingButton" fx:id="displaySettingButton" layoutX="348.0" layoutY="229.0" mnemonicParsing="false" onAction="#displaySettingClicked" prefHeight="27.0" prefWidth="150.0" text="設定表示" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="147.0" />
+      <Button styleClass="button,base" id="displayBoardButton" fx:id="displayBoardButton" layoutX="10.0" layoutY="147.0" mnemonicParsing="false" onAction="#displayBoardClicked" prefHeight="27.0" prefWidth="150.0" text="ボード表示" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="147.0" />
+      <Button styleClass="button,base" id="displayViewerButton" fx:id="displayViewerButton" layoutX="180.0" layoutY="229.0" mnemonicParsing="false" onAction="#displayViewerClicked" prefHeight="27.0" prefWidth="150.0" text="ビューワー表示" AnchorPane.leftAnchor="165.0" AnchorPane.topAnchor="147.0" />
+      <Button styleClass="button,base" id="displaySettingButton" fx:id="displaySettingButton" layoutX="348.0" layoutY="229.0" mnemonicParsing="false" onAction="#displaySettingClicked" prefHeight="27.0" prefWidth="150.0" text="設定表示" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="147.0" />
    </children>
 </AnchorPane>

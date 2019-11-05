@@ -6,7 +6,11 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
-
+/**
+ * Main実行クラス
+ * @author AA337121
+ * @version 0.6
+ */
 public class MameCommentMain extends Application {
 	@Override
 	public void start(Stage mainStage) {

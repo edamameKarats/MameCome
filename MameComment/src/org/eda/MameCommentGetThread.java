@@ -6,6 +6,11 @@ import java.util.ArrayList;
 
 import javafx.application.Platform;
 
+/**
+ * コメントを定期的に取得し、取得できた場合はMainControllerに送信リクエストを投げるクラス
+ * @author AA337121
+ * @version 0.6
+ */
 public class MameCommentGetThread extends Thread{
 
 	private MameCommentSettingData mameCommentSettingData;
@@ -14,7 +19,12 @@ public class MameCommentGetThread extends Thread{
 	public String movieId;
 	private int stopFlg;
 
-
+	/**
+	 * コンストラクタ
+	 * @param mcsData 設定データオブジェクト
+	 * @param movId 放送取得対象のユーザーのscreen_id
+	 * @param mainController 呼び出し元のMainController自身
+	 */
 	public MameCommentGetThread(MameCommentSettingData mcsData,String movId,MameCommentMainController mainController) {
 		mameCommentSettingData=mcsData;
 		movieUserId=movId;
@@ -22,27 +32,53 @@ public class MameCommentGetThread extends Thread{
 		mameCommentMainController=mainController;
 	}
 
+	/**
+	 * スレッド停止のための関数<br>
+	 * これでフラグがONになり、次のループでスレッドが終了する
+	 */
 	public void stopThread() {
 		stopFlg=1;
 	}
 
+	/**
+	 * スレッド実行クラス<br>
+	 * 1秒間隔でTwitCastingApiWrapperのgetCommentData()を発行し、コメントが有る場合はMainControllerのsendComment()を呼び出す<br>
+	 * エラー発生、もしくは外部からのstopThread()呼び出しによりstopFlgがONになるとループを終了し、Main画面のgetStartButtonの表示をもとに戻す
+	 */
 	public void run() {
 		movieId=checkMovie();
 		stopFlg=0;
 		long lastSliceId=0;
 		ArrayList<ArrayList<String>> commentData;
-		while(stopFlg!=1&& movieId!=null && !movieId.equals("")) {
-			writeDebugLog("Start to get comment.");
+		//TODO 実際にはここに初回コメント取得を挟む。(今までのデータを表示しないように) テスト完了後には削除する
+/*
+		if(!movieId.equals("")){
+			writeDebugLog("Start to get initial comment.");
+			commentData=TwitCastingApiWrapper.getCommentData(movieId,String.valueOf(lastSliceId),mameCommentSettingData.token);
+			ArrayList<String> comment;
+			if (commentData.size()!=0) {
+				for(int i=0;i<commentData.size();i++) {
+					comment=commentData.get(i);
+					if(lastSliceId<Long.parseLong(comment.get(0))) {
+						lastSliceId=Long.parseLong(comment.get(0));
+						writeDebugLog("Update last slice_id to "+lastSliceId);
+					}
+				}
+			}
+		}
+*/
+		while(stopFlg!=1 && movieId!=null && !movieId.equals("")) {
+			write_debug_log("Start to get comment.");
 			try {
 				commentData=TwitCastingApiWrapper.getCommentData(movieId,String.valueOf(lastSliceId),mameCommentSettingData.token);
 				ArrayList<String> comment;
 				if (commentData.size()!=0) {
-					writeDebugLog("New comment received.");
+					write_debug_log("New comment received.");
 					for(int i=0;i<commentData.size();i++) {
 						comment=commentData.get(i);
 						if(lastSliceId<Long.parseLong(comment.get(0))) {
 							lastSliceId=Long.parseLong(comment.get(0));
-							writeDebugLog("Update last slice_id to "+lastSliceId);
+							write_debug_log("Update last slice_id to "+lastSliceId);
 						}
 					}
 					mameCommentMainController.sendComment(commentData);
@@ -50,27 +86,39 @@ public class MameCommentGetThread extends Thread{
 				Thread.sleep(1000);
 				movieId=checkMovie();
 			}catch(Exception e) {
+				//多分ここには来ない？けど、StackTraceだけ出す。
 				e.printStackTrace();
+				stopFlg=1;
 			}
 		}
 		Platform.runLater(() ->
-			mameCommentMainController.getStartButton.setText(getStart)
+			mameCommentMainController.getStartButton.setText(GET_START)
+		);
+		Platform.runLater(() ->
+			mameCommentMainController.getStartButton.getStyleClass().remove("push")
 		);
 
 	}
 
+	/**
+	 * 内部実行クラス<br>
+	 * コンストラクタで指定した配信者のscreen_idをもとに、TwitCastingApiWrapperのgetMovieData()を呼び出して配信有無を応答する<br>
+	 * @return movieData:放送のID
+	 */
 	private String checkMovie() {
 		ArrayList<String> movieData=TwitCastingApiWrapper.getMovieData(movieUserId,mameCommentSettingData.token);
 		if(movieData==null||movieData.get(0)==null||movieData.get(0).contentEquals("")||movieData.get(1)==null) {
-			System.out.println("user is not found.");
+			write_log("User is not found.");
 			return "";
 		}
-
-/*		if(movieData.get(1).contentEquals("false")) {
-			System.out.println("user is not live.");
+		//TODO テスト後は削除して、on air でない放送を指定した場合止まるようにする
+/*
+ 		if(movieData.get(1).equals("false")) {
+			writeLog("User live is not on air.");
 			return "";
 		}
-*/		return movieData.get(0);
+*/
+		return movieData.get(0);
 	}
 
 }

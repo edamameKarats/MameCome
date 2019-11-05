@@ -1,0 +1,21 @@
+/* JavaFX CSS - Leave this comment until you have at least create one rule which uses -fx-Property */
+.base{
+	-fx-text-fill: #302833;
+}
+
+.background{
+	-fx-background-color: linear-gradient(from 0% 100% to 100% 0%, #13547a 0%,  #4992A0 100%);
+}
+
+.form{
+	-fx-background-color: linear-gradient(from 0% 100% to 100% 0%, #E0E0E0 0%,  #F0F0F0 100%);
+}
+
+.button{
+	-fx-background-color: linear-gradient(from 100% 0% to 0% 100%, #b092e4 0%,  #a581e3 100%);
+}
+
+.push{
+	-fx-background-color: linear-gradient(from 100% 0% to 0% 100%, #6036aa 0%,  #6e47b1 100%);
+	-fx-text-fill: #fef4f4;
+}

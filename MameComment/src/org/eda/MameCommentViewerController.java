@@ -2,6 +2,7 @@ package org.eda;
 
 import static org.eda.MameCommentCommon.*;
 
+import java.io.File;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -137,7 +138,7 @@ public class MameCommentViewerController implements Initializable{
 				task=new TimerTask() {
 					@Override
 					public void run() {
-						writeDebugLog("Adjust column size");
+						write_debug_log("Adjust column size");
 						double tmpTableWidth = commentTableView.getWidth();
 						double tmpTimeColumnWidth = timeTableColumn.getWidth();
 						double tmpImageColumnWidth = imageTableColumn.getWidth();
@@ -194,7 +195,7 @@ public class MameCommentViewerController implements Initializable{
 			}else if(repCheckBox.isSelected()) {
 				snsOption="reply";
 			}
-			writeDebugLog("Message send with sns option "+snsOption+". Message:"+inputTextArea.getText());
+			write_debug_log("Message send with sns option "+snsOption+". Message:"+inputTextArea.getText());
 			mameCommentMainController.postComment(inputTextArea.getText(), snsOption);
 			inputTextArea.setText("");
 		}
@@ -218,7 +219,8 @@ public class MameCommentViewerController implements Initializable{
 					public void updateItem(MameCommentViewerImage item, boolean empty) {
 						if(item!=null){
 							ImageView imageView = new ImageView();
-							imageView.setImage(new Image("file:"+item.getFileName(),item.getImageSize(),0,true,false));
+							File tmp=new File(item.getFileName());
+							imageView.setImage(new Image("file:"+tmp.getAbsolutePath(),item.getImageSize(),0,true,false));
 							setGraphic(imageView);
 						}
 					}

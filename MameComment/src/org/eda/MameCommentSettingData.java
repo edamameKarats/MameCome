@@ -11,6 +11,11 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 
+/**
+ * 設定データの格納クラス
+ * @author AA337121
+ * @version 0.6
+ */
 public class MameCommentSettingData {
 
 	public String replyUrl,token,logPath,boardFontName,boardFontColor,boardBgColor,viewerFontName,viewerFontColor,viewerBgColor;
@@ -20,7 +25,9 @@ public class MameCommentSettingData {
 	private final String[] paramList= {"replyUrl","token","logFlg","logPath","boardX","boardY","boardWidth","boardHeight","boardFontName","boardLineNum","boardFontColor"
 			,"boardBgColor","viewerX","viewerY","viewerWidth","viewerHeight","viewerTimeWidth","viewerImageWidth","viewerNameWidth","viewerCommentWidth","viewerFontName","viewerFontSize","viewerFontColor","viewerBgColor","viewerImageSize"};
 
-
+	/**
+	 * コンストラクタ。ここでデフォルト値の設定を行う。
+	 */
 	public MameCommentSettingData(){
 		//set initial value
 		replyUrl="";
@@ -50,6 +57,12 @@ public class MameCommentSettingData {
 		viewerImageSize=16;
 	}
 
+	/**
+	 * iniファイルの読み込みクラス<br>
+	 * カレントディレクトリのMameCommentSetting.iniファイルを読み込む
+	 * @throws IOException ファイル読み込みエラー
+	 * @throws FileNotFoundException ファイルなし
+	 */
 	public void readFromIni() throws IOException,FileNotFoundException {
 		//read ini file
 		BufferedReader bufferedReader=new BufferedReader(new FileReader(new File("MameCommentSetting.ini")));
@@ -188,6 +201,12 @@ public class MameCommentSettingData {
 		bufferedReader.close();
 	}
 
+	/**
+	 * iniファイルへの書き込みクラス<br>
+	 * カレントディレクトリのMameCommentSetting.iniに書き込む
+	 * @throws IOException 書き込みエラー
+	 * @throws FileNotFoundException
+	 */
 	public void writeToIni() throws IOException,FileNotFoundException{
 		String line;
 		ArrayList<String> lineArray=new ArrayList<String>();
@@ -199,6 +218,7 @@ public class MameCommentSettingData {
 			}
 			bufferedReader.close();
 		}catch(Exception e) {
+			write_log("Cannot read from ini File MameCommentSetting.ini. Overwrite new File.");
 			e.printStackTrace();
 		}
 		//replace value
@@ -212,6 +232,7 @@ public class MameCommentSettingData {
 						lineArray.add(j,tmpParam+"="+this.getClass().getField(tmpParam).get(this));
 						tmpFlg=true;
 					}catch(Exception e) {
+						//多分ここには来ないのでStackTraceだけ出す
 						e.printStackTrace();
 					}
 				}
@@ -220,6 +241,7 @@ public class MameCommentSettingData {
 				try {
 					lineArray.add(tmpParam+"="+this.getClass().getField(tmpParam).get(this));
 				}catch(Exception e) {
+					//多分ここには来ないのでStackTraceだけ出す
 					e.printStackTrace();
 				}
 			}
@@ -237,15 +259,20 @@ public class MameCommentSettingData {
 		bufferedWriter.close();
 	}
 
+	/**
+	 * repyUrlからToken文字列を抜き出し、tokenに格納する
+	 * @return T/F 抜き出せたかどうか
+	 */
 	public boolean setToken() {
 		try{
 			if(replyUrl!=null&&!replyUrl.equals("")) {
 				token=replyUrl.split("#",2)[1].split("&")[0].split("=",2)[1];
-				writeDebugLog("token is "+token);
+				write_debug_log("token is "+token);
 			}else {
 				return false;
 			}
 		}catch(Exception ex) {
+			write_log("ReplyUrl format may be wrong. "+replyUrl);
 			ex.printStackTrace();
 			return false;
 		}

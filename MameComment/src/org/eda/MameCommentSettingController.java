@@ -96,8 +96,8 @@ public class MameCommentSettingController implements Initializable{
 	@FXML
 	public void authButtonClicked(ActionEvent evt) {
 		try {
-			Desktop.getDesktop().browse(new URI(authURL));
-			receiver=new MameCommentAuthReceiver(mameCommentSettingData,this);
+			Desktop.getDesktop().browse(new URI(AUTH_URL));
+			receiver=new MameCommentAuthReceiver(this);
 			receiver.service();
 		}catch(Exception e) {
 			e.printStackTrace();

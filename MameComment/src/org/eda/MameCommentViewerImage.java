@@ -13,18 +13,29 @@ import java.nio.file.LinkOption;
 import java.nio.file.Paths;
 import java.util.HashMap;
 
+/**
+ * ビューワーにて表示する画像イメージに関するクラス
+ * @author AA337121
+ * @version 0.6
+ */
 public class MameCommentViewerImage {
 	private String fileName;
 	private Double imageSize;
 
+	/**
+	 * コンストラクタ
+	 * @param aFileUrl 画像ファイルのURL
+	 * @param aSize 画像表示のサイズ
+	 * @param aImageMap 画像ファイルのURLと実イメージファイルのMAP
+	 */
 	public MameCommentViewerImage(String aFileUrl,Double aSize,HashMap<String,String> aImageMap) {
 		fileName=aImageMap.get(aFileUrl);
-		writeDebugLog("fileName is "+fileName);
+		write_debug_log("fileName is "+fileName);
 		//fileNameが見つからない場合、URLの最後から２番目が多分固有なのでそこから引っ張ってきてファイル名を生成
 		//URLからファイルをダウンロードしてきてcachedImagesに保存
-		//次回からはそのファイルを使用するので、ダウンロードは１回だけのはず
+		//次回からはそのファイルを使用するので、ダウンロードは１回だけになる
 		if(fileName==null){
-			writeDebugLog("fileName is not found. get from url");
+			write_debug_log("fileName is not found. get from url");
 			String[] urlString=aFileUrl.split("/");
 			String tmpFileName=urlString[urlString.length-2]+".jpg";
 			URL url=null;
@@ -44,10 +55,10 @@ public class MameCommentViewerImage {
 					throw new Exception();
 				}
 				dis=new DataInputStream(conn.getInputStream());
-writeDebugLog("target file is cachedImages/"+tmpFileName);
-File tmpFile=new File("cachedImages/"+tmpFileName);
-writeDebugLog("abs path is "+tmpFile.getAbsolutePath());
-	dos=new DataOutputStream(new BufferedOutputStream(new FileOutputStream("cachedImages/"+tmpFileName)));
+				write_debug_log("target file is cachedImages/"+tmpFileName);
+				File tmpFile=new File("cachedImages/"+tmpFileName);
+				write_debug_log("abs path is "+tmpFile.getAbsolutePath());
+				dos=new DataOutputStream(new BufferedOutputStream(new FileOutputStream("cachedImages/"+tmpFileName)));
 				byte[] b=new byte[4096];
 				int readByte=0;
 
@@ -57,10 +68,10 @@ writeDebugLog("abs path is "+tmpFile.getAbsolutePath());
 				fileName=Paths.get("cachedImages/"+tmpFileName).toRealPath(LinkOption.NOFOLLOW_LINKS).toString();
 				aImageMap.put(aFileUrl, fileName);
 			}catch(Exception e) {
+				write_log("Some exception is occured during file get and save.");
 				e.printStackTrace();
 				//エラーが起きた場合はblankファイルを使用するようにする。
 				//次回もトライするので、Mapは更新しない
-				writeDebugLog("some exception is occured during file get and save");
 				fileName="blank.jpg";
 			}finally {
 				try {
@@ -80,16 +91,34 @@ writeDebugLog("abs path is "+tmpFile.getAbsolutePath());
 		imageSize=aSize;
 	}
 
+	/**
+	 * filenameのSetter
+	 * @param aFileName ファイル名
+	 */
 	public void setFileName(String aFileName) {
 		fileName=aFileName;
 	}
+
+	/**
+	 * imageSizeのSetter
+	 * @param aSize 画像サイズ
+	 */
 	public void setImageSize(Double aSize) {
 		imageSize=aSize;
 	}
 
+	/**
+	 * fileNameのGetter
+	 * @return fileName
+	 */
 	public String getFileName() {
 		return fileName;
 	}
+
+	/**
+	 * imageSizeのGetter
+	 * @return imageSize
+	 */
 	public Double getImageSize() {
 		return imageSize;
 	}
