@@ -66,6 +66,22 @@ public class MameCommentMainController implements Initializable{
 			write_log("Cannot read ini File.");
 			e.printStackTrace();
 		}
+		try{
+			File dir=new File("cachedImages");
+			if(dir.exists()) {
+				File[] files=dir.listFiles();
+				for(int i=0;i<files.length;i++) {
+					if(files[i].isFile()) {
+						files[i].delete();
+					}
+				}
+			}else {
+				dir.mkdir();
+			}
+		}catch(Exception e) {
+			write_log("Cannot remove cached image files.");
+			e.printStackTrace();
+		}
 	}
 
 	/**

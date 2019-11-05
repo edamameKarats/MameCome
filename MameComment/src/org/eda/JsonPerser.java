@@ -6,9 +6,10 @@ import java.util.HashMap;
 public class JsonPerser {
 	public static HashMap<String,String> getJsonMap(String jsonString) throws Exception{
 		HashMap<String,String> resultMap=new HashMap<String,String>();
-		if(jsonString.startsWith("{")) {
+		if(jsonString!=null&&jsonString.startsWith("{")) {
 			String tmpString=jsonString.replaceFirst("\\{", "");
 			tmpString=tmpString.replaceFirst("\\}$", "");
+			if(tmpString.equals(""))return resultMap;
 			String[] tmpArray=tmpString.split(",");
 			String concatString="";
 			int count=0;
@@ -30,6 +31,8 @@ public class JsonPerser {
 					resultMap.put(key.replaceFirst("\"", "").replaceFirst("\"$",""), concatString.replaceFirst("^\"", "").replaceFirst("\"$",""));
 				}
 			}
+		}else if(jsonString==null){
+			return resultMap;
 		}else {
 			throw new Exception("First character must be {");
 		}
@@ -38,9 +41,10 @@ public class JsonPerser {
 
 	public static ArrayList<String> getJsonArray(String jsonString) throws Exception{
 		ArrayList<String> result=new ArrayList<String>();
-		if(jsonString.startsWith("[{")) {
+		if(jsonString!=null&&jsonString.startsWith("[")) {
 			String tmpString=jsonString.replaceFirst("\\[", "");
 			tmpString=tmpString.replaceFirst("\\]$", "");
+			if(tmpString.equals(""))return result;
 			String[] tmpArray=tmpString.split(",");
 			String concatString="";
 			int count=0;
@@ -62,8 +66,10 @@ public class JsonPerser {
 					result.add(concatString);
 				}
 			}
+		}else if(jsonString==null){
+			return result;
 		}else {
-			throw new Exception("First characters must be [{");
+			throw new Exception("First characters must be [");
 		}
 		return result;
 	}
