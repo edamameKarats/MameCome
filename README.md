@@ -2,7 +2,7 @@ Japanese Only.
 If you need English one, please translate yourself.
 
 ---
-　ソフト名　： MameCome(仮)  
+　ソフト名　： MameComment  
 　著作権者　： 枝豆の人  
 　製作日　　： 製作中  
 　種別　　　： フリーソフトウェア  
@@ -26,7 +26,7 @@ If you need English one, please translate yourself.
 ---
 
 ## はじめに
-　MameCome(仮)は、TwitCastingのコメント情報を取得し、それを表示するためのプログラムです。  
+　MameCommentは、TwitCastingのコメント情報を取得し、それを表示するためのプログラムです。  
 　　主な特徴：  
 　　　1) idを指定し、一定間隔でコメント情報を取得する  
 　　　2) 取得したコメントをプログラム上のウインドウで、右から左に流れるように表示する(ボード機能)  
