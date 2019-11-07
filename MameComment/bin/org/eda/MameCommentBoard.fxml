@@ -7,11 +7,11 @@
 
 <AnchorPane fx:id="boardParent" prefHeight="360.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/9" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.eda.MameCommentBoardController">
    <children>
-      <AnchorPane fx:id="boardMenu" style="-fx-background-color: #F0F0FF;-fx-font-size: 12px; -fx-font-family: arial" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <AnchorPane styleClass="form,base" fx:id="boardMenu" style="-fx-font-size: 12px; -fx-font-family: arial" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
-		<Button fx:id="closeButton" onAction="#closeClicked" text="閉じる" AnchorPane.rightAnchor="0.0" />
+		<Button styleClass="button,base" fx:id="closeButton" onAction="#closeClicked" text="閉じる" AnchorPane.rightAnchor="0.0" />
 		<CheckBox fx:id="frontCheckBox" AnchorPane.leftAnchor="100.0" AnchorPane.topAnchor="5.0" />
-		<Button fx:id="changeTransButton" onAction="#changeTransClicked" text="透過切り替え" AnchorPane.leftAnchor="0.0" />
+		<Button styleClass="button,base" fx:id="changeTransButton" onAction="#changeTransClicked" text="透過切り替え" AnchorPane.leftAnchor="0.0" />
 		<Label style="-fx-text-fill: #000000;" text="常に最前面に表示" AnchorPane.leftAnchor="120.0" AnchorPane.topAnchor="5.0" />
          </children>
       </AnchorPane>

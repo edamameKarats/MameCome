@@ -50,23 +50,22 @@ public class MameCommentGetThread extends Thread{
 		stopFlg=0;
 		long lastSliceId=0;
 		ArrayList<ArrayList<String>> commentData;
-		//TODO 実際にはここに初回コメント取得を挟む。(今までのデータを表示しないように) テスト完了後には削除する
-/*
-		if(!movieId.equals("")){
-			writeDebugLog("Start to get initial comment.");
-			commentData=TwitCastingApiWrapper.getCommentData(movieId,String.valueOf(lastSliceId),mameCommentSettingData.token);
-			ArrayList<String> comment;
-			if (commentData.size()!=0) {
-				for(int i=0;i<commentData.size();i++) {
-					comment=commentData.get(i);
-					if(lastSliceId<Long.parseLong(comment.get(0))) {
-						lastSliceId=Long.parseLong(comment.get(0));
-						writeDebugLog("Update last slice_id to "+lastSliceId);
+		if(DEVELOP_MODE!=true) { //初回データ読み捨て
+			if(!movieId.equals("")){
+				write_debug_log("Start to get initial comment.");
+				commentData=TwitCastingApiWrapper.getCommentData(movieId,String.valueOf(lastSliceId),mameCommentSettingData.token);
+				ArrayList<String> comment;
+				if (commentData.size()!=0) {
+					for(int i=0;i<commentData.size();i++) {
+						comment=commentData.get(i);
+						if(lastSliceId<Long.parseLong(comment.get(0))) {
+							lastSliceId=Long.parseLong(comment.get(0));
+							write_debug_log("Update last slice_id to "+lastSliceId);
+						}
 					}
 				}
 			}
 		}
-*/
 		while(stopFlg!=1 && movieId!=null && !movieId.equals("")) {
 			write_debug_log("Start to get comment.");
 			try {
@@ -111,13 +110,12 @@ public class MameCommentGetThread extends Thread{
 			write_log("User is not found.");
 			return "";
 		}
-		//TODO テスト後は削除して、on air でない放送を指定した場合止まるようにする
-/*
- 		if(movieData.get(1).equals("false")) {
-			writeLog("User live is not on air.");
-			return "";
+		if(DEVELOP_MODE!=true) {
+	 		if(movieData.get(1).equals("false")) {
+				write_log("User live is not on air.");
+				return "";
+			}
 		}
-*/
 		return movieData.get(0);
 	}
 

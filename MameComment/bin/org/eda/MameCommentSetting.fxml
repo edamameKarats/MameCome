@@ -16,9 +16,9 @@
    <children>
       <TabPane layoutX="14.0" layoutY="45.0" prefHeight="455.0" prefWidth="600.0" style="-fx-background-color: #E0E0E0E0;" tabClosingPolicy="UNAVAILABLE" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="45.0">
         <tabs>
-          <Tab closable="false" style="-fx-background-color: #b5aee4#b5aee4;" text="基本設定">
+          <Tab styleClass="button,base" closable="false" text="基本設定">
             <content>
-              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="432.0" prefWidth="610.0">
+              <AnchorPane styleClass="form,base" minHeight="0.0" minWidth="0.0" prefHeight="432.0" prefWidth="610.0">
                      <children>
                         <Label layoutX="14.0" layoutY="14.0" text="基本設定" AnchorPane.leftAnchor="5.0" AnchorPane.topAnchor="5.0">
                            <font>
@@ -31,7 +31,7 @@
                            </font>
                         </Label>
                         <Label layoutX="27.0" layoutY="47.0" text="ツイキャスにアクセスするためのトークンを指定します。&#10;下記ボタンにてブラウザを開き認証を行うと、応答URLが自動で設定されます。&#10;うまくいかない場合はアクセス先をブラウザで開き、認証後のURL&#10;(http://localhost:8080/#access_token=xxxx・・・)を応答URLに貼り付けてください。" AnchorPane.leftAnchor="25.0" AnchorPane.topAnchor="50.0" />
-                        <Button fx:id="authButton" layoutX="27.0" layoutY="115.0" mnemonicParsing="false" onAction="#authButtonClicked" prefWidth="300.0" text="プログラム認証(ブラウザで開きます)" AnchorPane.leftAnchor="35.0" AnchorPane.topAnchor="120.0" />
+                        <Button styleClass="button,base" fx:id="authButton" layoutX="27.0" layoutY="115.0" mnemonicParsing="false" onAction="#authButtonClicked" prefWidth="300.0" text="プログラム認証(ブラウザで開きます)" AnchorPane.leftAnchor="35.0" AnchorPane.topAnchor="120.0" />
                         <Label layoutX="27.0" layoutY="150.0" text="アクセス先(うまく行かない場合)：" AnchorPane.leftAnchor="25.0" AnchorPane.topAnchor="155.0" />
                         <TextArea editable="false" layoutX="45.0" layoutY="167.0" prefHeight="79.0" prefWidth="550.0" text="https://apiv2.twitcasting.tv/oauth2/authorize?client_id=2671027374.f688b31afb4ae712724112e8ff419ae4c376a54f35f762bc047403ef6e56918d&amp;response_type=tokenhttps://apiv2.twitcasting.tv/oauth2/authorize?client_id=2671027374.f688b31afb4ae712724112e8ff419ae4c376a54f35f762bc047403ef6e56918d&amp;response_type=token" wrapText="true" AnchorPane.leftAnchor="35.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="170.0" />
                         <Label layoutX="28.0" layoutY="254.0" text="応答URL:" AnchorPane.leftAnchor="25.0" AnchorPane.topAnchor="255.0" />
@@ -48,9 +48,9 @@
                      </children></AnchorPane>
             </content>
           </Tab>
-          <Tab closable="false" style="-fx-background-color: #b5aee4;" text="ボード設定">
+          <Tab styleClass="button,base" closable="false" text="ボード設定">
             <content>
-              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+              <AnchorPane styleClass="form,base" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
                         <Label layoutX="22.0" layoutY="14.0" text="ボード設定" AnchorPane.leftAnchor="5.0" AnchorPane.topAnchor="5.0">
                            <font>
@@ -94,9 +94,9 @@
                      </children></AnchorPane>
             </content>
           </Tab>
-            <Tab closable="false" style="-fx-background-color: #b5aee4; -fx-pref-width: 100;" text="ビューワー設定">
+            <Tab styleClass="button,base" closable="false" text="ビューワー設定">
               <content>
-                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                <AnchorPane styleClass="form,base" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
                         <Label layoutX="33.0" layoutY="22.0" text="ビューワー設定" AnchorPane.leftAnchor="5.0" AnchorPane.topAnchor="5.0">
                            <font>
@@ -155,7 +155,7 @@
             <Font size="24.0" />
          </font>
       </Label>
-      <Button fx:id="saveButton" layoutX="146.0" layoutY="495.0" mnemonicParsing="false" onAction="#saveButtonClicked" prefWidth="150.0" text="保存" AnchorPane.leftAnchor="160.0" AnchorPane.topAnchor="510.0" />
-      <Button fx:id="canselButton" layoutX="208.0" layoutY="495.0" mnemonicParsing="false" onAction="#canselButtonClicked" prefWidth="150.0" text="キャンセル" AnchorPane.rightAnchor="160.0" AnchorPane.topAnchor="510.0" />
+      <Button styleClass="button,base" fx:id="saveButton" layoutX="146.0" layoutY="495.0" mnemonicParsing="false" onAction="#saveButtonClicked" prefWidth="150.0" text="保存" AnchorPane.leftAnchor="160.0" AnchorPane.topAnchor="510.0" />
+      <Button styleClass="button,base" fx:id="canselButton" layoutX="208.0" layoutY="495.0" mnemonicParsing="false" onAction="#canselButtonClicked" prefWidth="150.0" text="キャンセル" AnchorPane.rightAnchor="160.0" AnchorPane.topAnchor="510.0" />
    </children>
 </AnchorPane>

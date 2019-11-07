@@ -9,13 +9,17 @@
 
 <AnchorPane styleClass="background,base" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="185.0" prefWidth="480.0" xmlns="http://javafx.com/javafx/9" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.eda.MameCommentMainController">
    <children>
-      <Label layoutX="5.0" layoutY="5.0" prefHeight="74.0" prefWidth="74.0" style="-fx-background-color: #FFFFFF;" text="Mame&#10;Comment" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="10.0" />
+      <ImageView layoutX="5.0" layoutY="5.0" fitHeight="74.0" fitWidth="74.0" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="10.0">
+      	<image>
+      		<Image url="@title.jpg"/>
+      	</image>
+      </ImageView>
       <AnchorPane styleClass="form,base" layoutX="109.0" layoutY="14.0" prefHeight="74.0" prefWidth="477.0" AnchorPane.leftAnchor="89.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0">
          <children>
             <Label layoutX="14.0" layoutY="14.0" text="アカウント情報:" AnchorPane.leftAnchor="5.0" AnchorPane.topAnchor="5.0" />
             <ImageView id="accountUserImage" fx:id="accountUserImage" fitHeight="64.0" fitWidth="64.0" layoutX="279.0" layoutY="2.0" pickOnBounds="true" preserveRatio="true" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="5.0">
                <image>
-                  <Image url="@../../../../../../../Desktop/blank.jpg" />
+                  <Image url="@blank.jpg" />
                </image>
             </ImageView>
             <Label layoutX="28.0" layoutY="43.0" text="ユーザー名:" AnchorPane.leftAnchor="15.0" AnchorPane.topAnchor="25.0" />

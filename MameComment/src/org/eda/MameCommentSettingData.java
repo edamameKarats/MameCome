@@ -195,6 +195,18 @@ public class MameCommentSettingData {
 				} catch (NumberFormatException e) {
 				}
 				break;
+			case "debugMode":
+				try {
+					DEBUG_MODE=Boolean.valueOf(lineArray[1]);
+				} catch (NumberFormatException e) {
+				}
+				break;
+			case "developMode":
+				try {
+					DEVELOP_MODE=Boolean.valueOf(lineArray[1]);
+				} catch (NumberFormatException e) {
+				}
+				break;
 			default:
 			}
 		}

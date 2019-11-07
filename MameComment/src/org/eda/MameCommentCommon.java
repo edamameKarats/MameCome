@@ -31,7 +31,10 @@ public class MameCommentCommon {
 	public static final String SETTING_TITLE="設定";
 	public static final String AUTH_URL="https://apiv2.twitcasting.tv/oauth2/authorize?client_id=2671027374.f688b31afb4ae712724112e8ff419ae4c376a54f35f762bc047403ef6e56918d&response_type=tokenhttps://apiv2.twitcasting.tv/oauth2/authorize?client_id=2671027374.f688b31afb4ae712724112e8ff419ae4c376a54f35f762bc047403ef6e56918d&response_type=token";
 
-	public static final boolean DEBUG_FLG=true;
+	//Debug on/offのグローバル変数 ファイル読み込みで設定されるが、変更などはその後行わないし、ファイルへの保存も行わない
+	public static boolean DEBUG_MODE=false;
+
+	public static boolean DEVELOP_MODE=false;
 
 	/**
 	 * デバッグログ出力クラス<br>
@@ -39,7 +42,7 @@ public class MameCommentCommon {
 	 * @param message 出力するメッセージ
 	 */
 	public static void write_debug_log(String message) {
-		if(DEBUG_FLG) {
+		if(DEBUG_MODE) {
 			write_log("[DEBUG]"+message);
 		}
 	}

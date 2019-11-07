@@ -8,14 +8,14 @@
 }
 
 .form{
-	-fx-background-color: linear-gradient(from 0% 100% to 100% 0%, #E0E0E0 0%,  #F0F0F0 100%);
+	-fx-background-color: linear-gradient(from 0% 100% to 100% 0%, #dcf8ea 0%,  #edfcf4 100%);
 }
 
 .button{
-	-fx-background-color: linear-gradient(from 100% 0% to 0% 100%, #b092e4 0%,  #a581e3 100%);
-}
+	-fx-background-color: linear-gradient(from 0% 100% to 100% 0%, #72e2aa 0%,  #95eabf 100%);
+ }
 
 .push{
-	-fx-background-color: linear-gradient(from 100% 0% to 0% 100%, #6036aa 0%,  #6e47b1 100%);
-	-fx-text-fill: #fef4f4;
+	-fx-background-color: linear-gradient(from 0% 100% to 100% 0%, #1d8d55 0%,  #23b16a 100%);
+	-fx-text-fill:#edfcf4;
 }
