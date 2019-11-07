@@ -84,7 +84,7 @@ public class MameCommentAuthReceiver {
 
 
 		}catch(Exception e) {
-			write_log("Exception is occured during HTTP Server creation process.");
+			displayError("認証結果受領に失敗しました。",e);
 			e.printStackTrace();
 		}
 	}
@@ -102,7 +102,7 @@ public class MameCommentAuthReceiver {
             exchange.getResponseBody().write(responseBody);
 
         }catch(IOException ex){
-        	write_log("Exception is occured during reply message creation process.");
+        	displayError("認証結果の応答メッセージ作成に失敗しました。",ex);
             ex.printStackTrace();
         }
     }

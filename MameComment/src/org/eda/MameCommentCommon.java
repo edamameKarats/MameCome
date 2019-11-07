@@ -6,6 +6,9 @@ import java.io.FileWriter;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
+
 /**
  * システム内共通変数、関数定義クラス
  * @author AA337121
@@ -82,4 +85,34 @@ public class MameCommentCommon {
 			}
 		}
 	}
+
+	public static void displayInformation(String message) {
+		Alert alrt=new Alert(AlertType.INFORMATION);
+		alrt.setTitle("情報");
+		alrt.setHeaderText(null);
+		alrt.setContentText(message);
+		alrt.showAndWait();
+	}
+
+
+	public static void displayWarning(String message) {
+		Alert alrt=new Alert(AlertType.WARNING);
+		alrt.setTitle("警告");
+		alrt.setHeaderText(null);
+		alrt.setContentText(message);
+		alrt.showAndWait();
+	}
+
+	public static void displayError(String message,Exception e) {
+		Alert alrt=new Alert(AlertType.ERROR);
+		alrt.setTitle("エラー");
+		alrt.setHeaderText(null);
+		StackTraceElement[] errTrace=e.getStackTrace();
+		for(int i=0;i<errTrace.length;i++) {
+			message=message+"\n"+errTrace[i].toString();
+		}
+		alrt.setContentText(message);
+		alrt.showAndWait();
+	}
+
 }

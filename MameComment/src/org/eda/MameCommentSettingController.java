@@ -100,6 +100,7 @@ public class MameCommentSettingController implements Initializable{
 			receiver=new MameCommentAuthReceiver(this);
 			receiver.service();
 		}catch(Exception e) {
+			displayError("内部エラー：認証情報のURLが異常です。",e);
 			e.printStackTrace();
 		}
 	}
@@ -109,7 +110,7 @@ public class MameCommentSettingController implements Initializable{
 		try {
 			mameCommentSettingData.writeToIni();
 		}catch(Exception e) {
-			e.printStackTrace();
+			displayError("設定情報のファイルへの書き込みに失敗しました。",e);
 		}
 		settingStage.close();
 	}

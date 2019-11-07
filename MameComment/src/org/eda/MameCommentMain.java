@@ -32,6 +32,7 @@ public class MameCommentMain extends Application {
 			});
 
 		} catch(Exception e) {
+			System.err.println("Start failed.");
 			e.printStackTrace();
 		}
 	}
@@ -39,4 +40,7 @@ public class MameCommentMain extends Application {
 	public static void main(String[] args) {
 		launch(args);
 	}
+
+
+
 }

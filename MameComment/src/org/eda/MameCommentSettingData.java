@@ -230,7 +230,7 @@ public class MameCommentSettingData {
 			}
 			bufferedReader.close();
 		}catch(Exception e) {
-			write_log("Cannot read from ini File MameCommentSetting.ini. Overwrite new File.");
+			displayError("設定ファイルの読み込みに失敗しました。新規作成します。",e);
 			e.printStackTrace();
 		}
 		//replace value
@@ -284,6 +284,7 @@ public class MameCommentSettingData {
 				return false;
 			}
 		}catch(Exception ex) {
+			displayError("応答されたURL文字列に異常があります。\nURL:"+replyUrl,ex);
 			write_log("ReplyUrl format may be wrong. "+replyUrl);
 			ex.printStackTrace();
 			return false;

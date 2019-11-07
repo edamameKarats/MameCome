@@ -107,12 +107,16 @@ public class MameCommentGetThread extends Thread{
 	private String checkMovie() {
 		ArrayList<String> movieData=TwitCastingApiWrapper.getMovieData(movieUserId,mameCommentSettingData.token);
 		if(movieData==null||movieData.get(0)==null||movieData.get(0).contentEquals("")||movieData.get(1)==null) {
-			write_log("User is not found.");
+			Platform.runLater(() ->
+				displayWarning("ユーザーが見つかりませんでした。")
+			);
 			return "";
 		}
 		if(DEVELOP_MODE!=true) {
 	 		if(movieData.get(1).equals("false")) {
-				write_log("User live is not on air.");
+				Platform.runLater(() ->
+					displayWarning("ユーザーは現在放送中ではありません。")
+				);
 				return "";
 			}
 		}

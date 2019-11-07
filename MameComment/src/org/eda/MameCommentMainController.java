@@ -60,10 +60,10 @@ public class MameCommentMainController implements Initializable{
 			settingData=new MameCommentSettingData();
 			settingData.readFromIni();
 		}catch(FileNotFoundException e) {
-			write_log("Cannot find ini File.");
+			displayWarning("MameCommentSetting.iniが見つかりません。デフォルト値で新規作成します。");
 			e.printStackTrace();
 		}catch(Exception e) {
-			write_log("Cannot read ini File.");
+			displayWarning("MameCommentSetting.iniが読み込めません。デフォルト値で新規作成します。プログラム終了時に設定が保存されない可能性があります。");
 			e.printStackTrace();
 		}
 		try{
@@ -79,7 +79,7 @@ public class MameCommentMainController implements Initializable{
 				dir.mkdir();
 			}
 		}catch(Exception e) {
-			write_log("Cannot remove cached image files.");
+			displayWarning("キャッシュファイルの削除に失敗しました。cachedImagesフォルダの権限や、その内部のファイルの権限を確認してください。");
 			e.printStackTrace();
 		}
 	}
@@ -151,14 +151,10 @@ public class MameCommentMainController implements Initializable{
 
 				boardStage.showingProperty().addListener((observable, oldvalue, newvalue)->{
 					if(oldvalue==true && newvalue==false) {
-						try {
-							settingData.boardX=boardStage.getX();
-							settingData.boardY=boardStage.getY();
-							settingData.boardWidth=boardStage.getWidth();
-							settingData.boardHeight=boardStage.getHeight();
-						}catch(Exception e) {
-							e.printStackTrace();
-						}
+						settingData.boardX=boardStage.getX();
+						settingData.boardY=boardStage.getY();
+						settingData.boardWidth=boardStage.getWidth();
+						settingData.boardHeight=boardStage.getHeight();
 						displayBoardButton.setText(BOARD_OPEN);
 						displayBoardButton.getStyleClass().remove("push");
 					}
@@ -166,6 +162,7 @@ public class MameCommentMainController implements Initializable{
 				displayBoardButton.setText(BOARD_CLOSE);
 				displayBoardButton.getStyleClass().add("push");
 			} catch(Exception ex) {
+				displayError("ボード画面の表示に失敗しました。",ex);
 				ex.printStackTrace();
 			}
 		}
@@ -214,6 +211,7 @@ public class MameCommentMainController implements Initializable{
 				displayViewerButton.setText(VIEWER_CLOSE);
 				displayViewerButton.getStyleClass().add("push");
 			} catch(Exception ex) {
+				displayError("ビューワー画面の表示に失敗しました。",ex);
 				ex.printStackTrace();
 			}
 		}
@@ -247,6 +245,7 @@ public class MameCommentMainController implements Initializable{
 						try {
 							settingData.writeToIni();
 						}catch(Exception e) {
+							displayError("設定情報のファイルへの書き込みに失敗しました。",e);
 							e.printStackTrace();
 						}
 						setAccountUserInfo();
@@ -260,6 +259,7 @@ public class MameCommentMainController implements Initializable{
 				displaySettingButton.getStyleClass().add("push");
 
 			} catch(Exception ex) {
+				displayError("設定画面の表示に失敗しました。",ex);
 				ex.printStackTrace();
 			}
 		}
@@ -282,7 +282,7 @@ public class MameCommentMainController implements Initializable{
 		try {
 			settingData.writeToIni();
 		}catch(Exception e) {
-			write_log("Cannot write setting to ini file.");
+			displayError("設定情報のファイルへの書き込みに失敗しました。",e);
 			e.printStackTrace();
 		}
 		try{
@@ -294,7 +294,7 @@ public class MameCommentMainController implements Initializable{
 				}
 			}
 		}catch(Exception e) {
-			write_log("Cannot remove cached image files.");
+			displayWarning("キャッシュファイルの削除に失敗しました。cachedImagesフォルダの権限や、その内部のファイルの権限を確認してください。");
 			e.printStackTrace();
 		}
 	}
@@ -311,7 +311,7 @@ public class MameCommentMainController implements Initializable{
 				accountUserId.setText(accountUserInfo.get(1));
 				accountUserImage.setImage(new Image(accountUserInfo.get(2)));
 			}catch(Exception e) {
-				write_log("Token information may be wrong. "+settingData.token);
+				displayWarning("アカウント情報の取得に失敗しました。トークンの有効期限が切れている可能性があります。");
 				e.printStackTrace();
 				accountUserName.setText("token error");
 				accountUserId.setText("token error");
@@ -319,6 +319,7 @@ public class MameCommentMainController implements Initializable{
 				accountUserImage.setImage(new Image("file:"+tmp.getAbsolutePath()));
 			}
 		}else {
+			displayWarning("トークン情報が未登録です。設定画面よりトークンの取得を行ってください。");
 			accountUserName.setText("no token");
 			accountUserId.setText("no token");
 			File tmp=new File("blank.jpg");
