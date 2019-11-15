@@ -25,7 +25,12 @@ If you need English one, please translate yourself.
   
   また、当プログラムはTwitcastingのトークン認証を通す際に、一瞬ポート(8080/8081)を開放し、利用します。  
   セキュリティ上あまり好ましいとは言えない実装ですので、トークン認証の際は注意してください。
-  (手動で実施いただけばこの問題は発生しません)
+  (手動で実施いただけばこの問題は発生しません)　　
+  
+  当プログラムは、OpenJFX(https://openjfx.io/)を使用しています。  
+  OpenJFXはCreativeCommonsのライセンス(CC-BY-NC)に従います。  
+  詳細は以下を参照してください。  
+  https://creativecommons.org/licenses/by-nc/4.0/
 
 ---
 
