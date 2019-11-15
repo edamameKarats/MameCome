@@ -365,4 +365,26 @@ public class MameCommentMainController implements Initializable{
 		write_debug_log("Post comment request received. comment:"+comment+", sns:"+sns+",to "+getThread.movieId);
 		return TwitCastingApiWrapper.postCommentData(getThread.movieId, comment, sns, settingData.token);
 	}
+
+
+	/**
+	 * このプログラムについてを表示するメソッド
+	 */
+	@FXML
+	public void displayAbout() {
+		try {
+			Stage aboutStage=new Stage();
+			aboutStage.initModality(Modality.APPLICATION_MODAL);
+			FXMLLoader aboutLoader = new FXMLLoader(getClass().getResource("MameCommentAbout.fxml"));
+			Parent aboutRoot = aboutLoader.load();
+			aboutStage.setTitle("About MameComment");
+			Scene aboutScene = new Scene(aboutRoot);
+			aboutScene.getStylesheets().add(getClass().getResource("MameCommentAbout.css").toExternalForm());
+			aboutStage.setScene(aboutScene);
+			aboutStage.show();
+		}catch(Exception ex) {
+			displayError("このプログラムについての画面の表示に失敗しました。",ex);
+			ex.printStackTrace();
+		}
+	}
 }

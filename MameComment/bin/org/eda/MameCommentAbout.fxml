@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Hyperlink?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="201.0" prefWidth="425.0" styleClass="background,base" xmlns="http://javafx.com/javafx/9" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <Label layoutX="82.0" layoutY="4.0" text="MameComment">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <ImageView fitHeight="74.0" fitWidth="74.0" layoutX="14.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="5.0" AnchorPane.topAnchor="5.0">
+         <image>
+            <Image url="@title.jpg" />
+         </image>
+      </ImageView>
+      <Label layoutX="85.0" layoutY="27.0" prefHeight="57.0" prefWidth="336.0" text="version : 0.6&#10;This program is Japanese only.&#10;Licence requirements are witten in " />
+      <Hyperlink layoutX="79.0" layoutY="79.0" prefHeight="25.0" prefWidth="336.0" text="https://github.com/edamameKarats/MameCome" />
+      <Label layoutX="83.0" layoutY="98.0" text="(Readme is also in Japanese.)&#10;This program uses OpenJFX." />
+      <Label layoutX="83.0" layoutY="146.0" text="OpenJFX is licensed under a Creative Commons &#10;Attribution-NonCommercial 4.0 International License." />
+      <Hyperlink layoutX="79.0" layoutY="126.0" prefHeight="25.0" prefWidth="336.0" text="https://openjfx.io" />
+      <Hyperlink layoutX="78.0" layoutY="174.0" prefHeight="25.0" prefWidth="336.0" text="https://creativecommons.org/licenses/by-nc/4.0/" />
+   </children>
+</AnchorPane>
