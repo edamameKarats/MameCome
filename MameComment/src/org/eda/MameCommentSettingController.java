@@ -96,7 +96,11 @@ public class MameCommentSettingController implements Initializable{
 	@FXML
 	public void authButtonClicked(ActionEvent evt) {
 		try {
-			Desktop.getDesktop().browse(new URI(AUTH_URL));
+			if(System.getProperty("os.name").toLowerCase().startsWith("windows")||System.getProperty("os.name").toLowerCase().startsWith("mac")) {
+				Desktop.getDesktop().browse(new URI(AUTH_URL));
+			}else {
+				Runtime.getRuntime().exec(new String[] { "xdg-open", AUTH_URL });
+			}
 			receiver=new MameCommentAuthReceiver(this);
 			receiver.service();
 		}catch(Exception e) {

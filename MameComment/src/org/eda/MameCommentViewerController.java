@@ -76,10 +76,16 @@ public class MameCommentViewerController implements Initializable{
 		nameTableColumn.setPrefWidth(mameCommentSettingData.viewerNameWidth);
 		commentTableColumn.setPrefWidth(mameCommentSettingData.viewerCommentWidth);
 
-		timeTableColumn.setStyle("-fx-background-color:#"+mameCommentSettingData.viewerBgColor.substring(2,8)+";-fx-text-fill: #"+mameCommentSettingData.viewerFontColor.substring(2,8)+";");
-		imageTableColumn.setStyle("-fx-background-color:#"+mameCommentSettingData.viewerBgColor.substring(2,8)+";-fx-text-fill: #"+mameCommentSettingData.viewerFontColor.substring(2,8)+";");
-		nameTableColumn.setStyle("-fx-background-color:#"+mameCommentSettingData.viewerBgColor.substring(2,8)+";-fx-text-fill: #"+mameCommentSettingData.viewerFontColor.substring(2,8)+";");
-		commentTableColumn.setStyle("-fx-background-color:#"+mameCommentSettingData.viewerBgColor.substring(2,8)+";-fx-text-fill: #"+mameCommentSettingData.viewerFontColor.substring(2,8)+";");
+		String tmpBorderColor="";
+		if(Integer.parseInt(mameCommentSettingData.viewerBgColor.substring(2,4),16)+Integer.parseInt(mameCommentSettingData.viewerBgColor.substring(4,6),16)+Integer.parseInt(mameCommentSettingData.viewerBgColor.substring(6,8),16)>382) {
+			tmpBorderColor="#0F0F0F";
+		}else {
+			tmpBorderColor="#F0F0F0";
+		}
+		timeTableColumn.setStyle("-fx-background-color:#"+mameCommentSettingData.viewerBgColor.substring(2,8)+";-fx-text-fill: #"+mameCommentSettingData.viewerFontColor.substring(2,8)+";-fx-border-color: "+tmpBorderColor+";");
+		imageTableColumn.setStyle("-fx-background-color:#"+mameCommentSettingData.viewerBgColor.substring(2,8)+";-fx-text-fill: #"+mameCommentSettingData.viewerFontColor.substring(2,8)+";-fx-border-color: "+tmpBorderColor+";");
+		nameTableColumn.setStyle("-fx-background-color:#"+mameCommentSettingData.viewerBgColor.substring(2,8)+";-fx-text-fill: #"+mameCommentSettingData.viewerFontColor.substring(2,8)+";-fx-border-color: "+tmpBorderColor+";");
+		commentTableColumn.setStyle("-fx-background-color:#"+mameCommentSettingData.viewerBgColor.substring(2,8)+";-fx-text-fill: #"+mameCommentSettingData.viewerFontColor.substring(2,8)+";-fx-border-color: "+tmpBorderColor+";");
 		inputTextArea.setStyle("-fx-text-fill: #"+mameCommentSettingData.viewerFontColor.substring(2,8)+";");
 		inputTextArea.lookup(".content").setStyle("-fx-background-color:#"+mameCommentSettingData.viewerBgColor.substring(2,8)+";");
 
@@ -146,13 +152,22 @@ public class MameCommentViewerController implements Initializable{
 						double tmpCommentColumnWidth = commentTableColumn.getWidth();
 						double tmpScrollBarWidth=scrollBar.getWidth()+5;//ちょっとずれてる
 						double tmpTotalColumnWidth=tmpTimeColumnWidth+tmpImageColumnWidth+tmpNameColumnWidth+tmpNameColumnWidth;
+						write_debug_log("from:"+tmpTableWidth+","+tmpTimeColumnWidth+","+tmpImageColumnWidth+","+tmpNameColumnWidth+","+tmpCommentColumnWidth+","+tmpScrollBarWidth);
 						if(tmpTableWidth>=tmpTotalColumnWidth+scrollBar.getWidth()) {
 							commentTableColumn.setPrefWidth(tmpTableWidth-tmpTimeColumnWidth-tmpImageColumnWidth-tmpNameColumnWidth-tmpScrollBarWidth);
+							write_debug_log("to:"+tmpTableWidth+","+tmpTimeColumnWidth+","+tmpImageColumnWidth+","+tmpNameColumnWidth+","+(tmpTableWidth-tmpTimeColumnWidth-tmpImageColumnWidth-tmpNameColumnWidth-tmpScrollBarWidth)+","+tmpScrollBarWidth);
 						}else {
-							timeTableColumn.setPrefWidth((tmpTableWidth-tmpScrollBarWidth)/tmpTotalColumnWidth*tmpTimeColumnWidth);
-							imageTableColumn.setPrefWidth((tmpTableWidth-tmpScrollBarWidth)/tmpTotalColumnWidth*tmpImageColumnWidth);
-							nameTableColumn.setPrefWidth((tmpTableWidth-tmpScrollBarWidth)/tmpTotalColumnWidth*tmpNameColumnWidth);
-							commentTableColumn.setPrefWidth((tmpTableWidth-tmpScrollBarWidth)/tmpTotalColumnWidth*tmpCommentColumnWidth);
+							double testCommentColumnWidth=tmpTableWidth-tmpTimeColumnWidth-tmpImageColumnWidth-tmpNameColumnWidth-tmpScrollBarWidth;
+							if(testCommentColumnWidth<100) {
+								timeTableColumn.setPrefWidth((tmpTableWidth-tmpScrollBarWidth)/tmpTotalColumnWidth*tmpTimeColumnWidth);
+								imageTableColumn.setPrefWidth((tmpTableWidth-tmpScrollBarWidth)/tmpTotalColumnWidth*tmpImageColumnWidth);
+								nameTableColumn.setPrefWidth((tmpTableWidth-tmpScrollBarWidth)/tmpTotalColumnWidth*tmpNameColumnWidth);
+								commentTableColumn.setPrefWidth((tmpTableWidth-tmpScrollBarWidth)/tmpTotalColumnWidth*tmpCommentColumnWidth);
+								write_debug_log("to:"+tmpTableWidth+","+((tmpTableWidth-tmpScrollBarWidth)/tmpTotalColumnWidth*tmpTimeColumnWidth)+","+((tmpTableWidth-tmpScrollBarWidth)/tmpTotalColumnWidth*tmpImageColumnWidth)+","+((tmpTableWidth-tmpScrollBarWidth)/tmpTotalColumnWidth*tmpNameColumnWidth)+","+((tmpTableWidth-tmpScrollBarWidth)/tmpTotalColumnWidth*tmpCommentColumnWidth)+","+tmpScrollBarWidth);
+							}else {
+								write_debug_log("to:"+tmpTableWidth+","+tmpTimeColumnWidth+","+tmpImageColumnWidth+","+tmpNameColumnWidth+","+testCommentColumnWidth+","+tmpScrollBarWidth);
+								commentTableColumn.setPrefWidth(testCommentColumnWidth);
+							}
 						}
 					}
 				};

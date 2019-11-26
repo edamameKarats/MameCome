@@ -307,6 +307,7 @@ public class MameCommentMainController implements Initializable{
 		if(settingData.token!=null&&!settingData.token.equals("")) {
 			try {
 				ArrayList<String> accountUserInfo=TwitCastingApiWrapper.getSelfData(settingData.token);
+				write_debug_log("userName:"+accountUserInfo.get(0)+",userId:"+accountUserInfo.get(1)+",imageUrl:"+accountUserInfo.get(2));
 				accountUserName.setText(accountUserInfo.get(0));
 				accountUserId.setText(accountUserInfo.get(1));
 				accountUserImage.setImage(new Image(accountUserInfo.get(2)));
